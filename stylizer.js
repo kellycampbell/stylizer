@@ -68,6 +68,7 @@ module.exports = function (infile, outfile, plugins, done) {
     var options;
     var development = false; //by default
     var watch;
+    var stylusOptions;
 
     // When called as (options, done) [recommended]
     if (arguments.length < 3 && typeof infile === 'object' && (typeof outfile === 'function' || typeof outfile === 'undefined')) {
@@ -81,6 +82,10 @@ module.exports = function (infile, outfile, plugins, done) {
         plugins = options.plugins || [];
         development = options.development || development;
         watch = options.watch || watch;
+        stylusOptions = options.options || {};
+        if (development) {
+            stylusOptions.sourceMapInline = true;
+        }
     }
 
     // When called as (infile, outfile, callback)
@@ -94,7 +99,8 @@ module.exports = function (infile, outfile, plugins, done) {
         livereloadWatch(infile, options.watch, function (done) {
             compileStylus({
                 infile: infile,
-                plugins: plugins
+                plugins: plugins,
+                options: stylusOptions
             }, function (err, css) {
                 var errMessage;
 
@@ -110,7 +116,8 @@ module.exports = function (infile, outfile, plugins, done) {
 
     compileStylus({
         infile: infile,
-        plugins: plugins
+        plugins: plugins,
+        options: stylusOptions
     }, function (err, css) {
         var errMessage;
 

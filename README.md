@@ -18,6 +18,13 @@ stylizer({
     outfile: '/path/to/outfile.css',     // optional, output css file, defaults to infile with .css extension
     plugins: ['nib'],                    // optional, array of stylus compatible plugin module names, default: []
     development: true                    // optional, whether to run in development mode, default: false
+    options: {                           // optional, extra options to pass to stylus
+        includeCSS: false,               // optional, Include regular CSS on @import, default: true
+        sourceMap: true,                 // optional, Generates a sourcemap in v3 format, default: false
+        sourceMapInline: true,           // optional, Inlines sourcemap in base64 format, implies sourceMap:true,
+                                         //           default: false, true in development mode
+        resolveUrl: true                 // optional, Resolve relative urls inside imports, default: false
+    },
     watch: '/path/to/stylusfiles/**/*.styl' // optional, enable live reload, see below.
 }, function (err) {                      // required, callback to run when built
     console.log('Stylus css written');
